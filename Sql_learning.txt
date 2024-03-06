@@ -1,0 +1,59 @@
+============================================ psql shell command ============================================
+	\l : listing all databases
+	\c <?db-name> : switch to another database
+	\dt : listing all databse tables
+	\d : Describe a table
+	\dn : Listing all schemas
+	\du : Listing all users and their roles
+	\i <file-name> : Running command from filename
+	\e : edit current line
+	\! clear : clear terminal
+
+============================================ Data type ============================================
+	int: số nguyên
+	float: số thực bao gồm cả các số thập phân...
+	char: ký tự dạng chuỗi có thể là số, khoảng trắng ký tự đặc biệt... => phù hợp với dữ liệu không thường xuyên thay đổi độ dài
+	varchar: giống char, nhưng nó sẽ cắt bỏ những byte không dùng => tiết kiệm bộ nhớ nhưng đổi lại mất thời gian tính toán. => phù hợp với dữ liệu thường xuyên thay đổi độ dài
+	nchar,nvarchar: kiểu ký tự unicode chỉ dùng cho mysql và sql server
+	serial: tạo ra các id tăng dần
+	
+============================================ CRUD ============================================
+
+CREATE TABLE <table-name>; : tạo bảng
+DROP TABLE <table-name>; xoá bảng
+INSERT INTO <table-name>(column1,column2...) VALUES(value1,value2...);
+SELECT * FROM <table-namme>; : get all columns in table	
+UPDATE <table-name>
+	set
+	<field> = <value>
+	<?conditions>;
+
+DELETE FROM <table-name>
+	WHERE <field> = <value>;
+	
+Lưu ý khi tạo bảng: 
+	name thường để varchar(50)
+	thay vì lưu tuổi sẽ lưu ngày sinh dạng YYYY-MM-DD
+	số điện thoại sẽ lưu dạng char(12) vì sdt startWiths 0 or +84
+	
+======================================== Relation ship ========================================
++ 1-1 : 1 record ở bảng này sẽ chỉ match với 1 record ở bảng khác. Ví dụ như: bảng sinh_vien và chi_tiet_sinh_vien thì 1 sv chỉ ref tới 1 bảng chi tiết sinh viên tương ứng và ngược lại.
++ 1-n : 1 record ở bảng này sẽ match với n record ở bảng khác. Ví dụ như: bảng sinh_vien và bảng lớp, 1 lớp thì có nhiều sv nhưng sv thì chỉ thuộc 1 lớp nhất định.
++ n-n: n record ở bảng này sẽ match với n record ở bảng khác. Ví dụ: 1 sinh_vien có thể học nhiều khoa_hoc và 1 khoá học cũng có thể nhiều sinh_vien vào học => Tạo bảng trung gian để quy về 1-n và n-1
+
+============================================ NOTE ============================================
+- Khi đã tạo bảng và INSERT mà thêm Constraint check thì check sẽ luôn kiểm tra data đã insert.
+- 1 bảng chỉ có 1 PRIMARY KEY và 1 PRIMARY KEY có thể chứa nhiều cột.
+- Một số built-in: NOW, CURRENT_DATE
+- Group by chỉ sử dụng được với aggregate functions
+- Count(*) không đếm theo 1 cột nhất định mà sẽ luôn đếm số records (đếm cột sẽ bỏ qua NULL nhưng * thì không)
+
+============================================ Keywords ============================================
+- Appremate functions
+- Chuẩn hoá cơ sở dữ liệu:
+	+ Mỗi cột: đơn trị, chỉ lưu 1 giá trị ví dụ như họ riêng, tên riêng, địa chỉ lưu tinh, huyện...
+	+ Loại bỏ trùng lặp sang bảng mới
+	+ Cột: loại bỏ những cái có thể tính toán
+	
+	
+	
